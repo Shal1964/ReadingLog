@@ -164,6 +164,15 @@ class _HomeScreenState extends State<HomeScreen> {
         return !savedTitles.contains(title);
       }).take(10).toList();
 
+      // If the combined genre+author query returned nothing, retry with genre alone
+      if (filtered.isEmpty && topGenre != null && randomAuthor != null) {
+        final genreOnly = await _bookService.fetchRecommendations('subject:${Uri.encodeComponent(topGenre)}');
+        filtered = genreOnly.where((item) {
+          final title = ((item['volumeInfo'] as Map?)?['title'] ?? '').toString().toLowerCase();
+          return !savedTitles.contains(title);
+        }).take(10).toList();
+      }
+
       if (filtered.isEmpty) {
         final fallback = await _bookService.fetchRecommendations('subject:fiction');
         filtered = fallback.take(10).toList();

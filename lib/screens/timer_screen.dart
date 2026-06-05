@@ -92,8 +92,8 @@ class _TimerScreenState extends State<TimerScreen> {
       context: context,
       backgroundColor: AppTheme.bgPrimary,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-      builder: (_) => Padding(
-        padding: const EdgeInsets.all(24),
+      builder: (sheetCtx) => Padding(
+        padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,20 +101,36 @@ class _TimerScreenState extends State<TimerScreen> {
             Text('Select a Book', style: AppTheme.screenTitle),
             const SizedBox(height: 16),
             if (_readingBooks.isEmpty)
-              Text('No books in Reading shelf', style: AppTheme.caption)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: Text('No books in Reading shelf', style: AppTheme.caption),
+              )
             else
-              ..._readingBooks.map((b) => ListTile(
-                    title: Text(b['title'] ?? '', style: AppTheme.body),
-                    subtitle: Text(b['author'] ?? '', style: AppTheme.caption),
-                    contentPadding: EdgeInsets.zero,
-                    onTap: () {
-                      setState(() {
-                        _selectedBookId = b['book_id'];
-                        _selectedBookTitle = b['title'];
-                      });
-                      Navigator.pop(context);
-                    },
-                  )),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(sheetCtx).size.height * 0.4,
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _readingBooks.length,
+                  itemBuilder: (_, i) {
+                    final b = _readingBooks[i];
+                    return ListTile(
+                      title: Text(b['title'] ?? '', style: AppTheme.body),
+                      subtitle: Text(b['author'] ?? '', style: AppTheme.caption),
+                      contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        setState(() {
+                          _selectedBookId = b['book_id'];
+                          _selectedBookTitle = b['title'];
+                        });
+                        Navigator.pop(sheetCtx);
+                      },
+                    );
+                  },
+                ),
+              ),
+            SizedBox(height: MediaQuery.of(sheetCtx).viewInsets.bottom + 16),
           ],
         ),
       ),
