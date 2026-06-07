@@ -1,16 +1,19 @@
-# reading_log
+# ReadingLog
 
-A new Flutter project.
+A personal reading journal app built with Flutter and Supabase. 
+readingLog helps users track their reading habits, organize books 
+into custom shelves, and maintain focus with a built-in Pomodoro timer.
 
-## Getting Started
+## Features
+- Search millions of books via Google Books API
+- Track currently reading, wishlist, and completed books
+- Save personal quotes and journal entries per book
+- Organize books into custom shelves
+- Pomodoro timer to log focused reading sessions
+- Personalized book recommendations based on reading history
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech Stack
+- Frontend: Flutter (Dart)
+- Database:PostgreSQL via Supabase
+- Auth: Supabase Auth
+- External API: Google Books API
