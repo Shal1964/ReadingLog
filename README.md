@@ -1,7 +1,7 @@
 # ReadingLog
 
 A personal reading journal app built with Flutter and Supabase. 
-readingLog helps users track their reading habits, organize books 
+ReadingLog helps users track their reading habits, organize books 
 into custom shelves, and maintain focus with a built-in Pomodoro timer.
 
 ## Features
