@@ -23,7 +23,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
   bool _descExpanded = false;
   List<Map<String, dynamic>> _similar = [];
 
-  // Library state (null = not in library yet)
   String? _supaBookId;
   int _currentPage = 0;
   int _totalPages = 0;
