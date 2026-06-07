@@ -90,7 +90,6 @@ class _MainScaffoldState extends State<MainScaffold> with RouteAware {
     super.dispose();
   }
 
-  // Called when a pushed route is popped (e.g. back from BookDetailScreen)
   @override
   void didPopNext() {
     if (_currentIndex == 2) _libraryKey.currentState?.refresh();
@@ -114,7 +113,6 @@ class _MainScaffoldState extends State<MainScaffold> with RouteAware {
         currentIndex: _currentIndex,
         onTap: (i) {
           if (i == 2 && _currentIndex != 2) {
-            // Switching TO library tab — always refresh
             _libraryKey.currentState?.refresh();
           }
           setState(() => _currentIndex = i);

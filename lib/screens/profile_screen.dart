@@ -65,8 +65,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } catch (_) {}
   }
 
-  // ── Logout ─────────────────────────────────────────────────────────────────
-
   Future<void> _confirmSignOut() async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -95,8 +93,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  // ── Profile saves ──────────────────────────────────────────────────────────
-
   Future<void> _saveQuote() async {
     setState(() => _editingQuote = false);
     await _service.upsertProfile({'favourite_quote': _quoteCtrl.text.trim()});
@@ -111,8 +107,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() => _editingAuthor = false);
     await _service.upsertProfile({'favourite_author': _authorCtrl.text.trim()});
   }
-
-  // ── Build ──────────────────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +208,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Stats
             Row(
               children: [
                 Expanded(child: _statCard('Books Read', '$_booksRead')),
@@ -224,7 +217,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Personal Info
             Text('Personal Info', style: AppTheme.body.copyWith(fontWeight: FontWeight.w600, fontSize: 16)),
             const SizedBox(height: 12),
             _editableInfoRow('Favourite Genre',  _genreCtrl,  _editingGenre,
@@ -233,7 +225,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               () => setState(() => _editingAuthor = true), _saveAuthor),
             const SizedBox(height: 24),
 
-            // Recent Activity
             Text('Recent Activity', style: AppTheme.body.copyWith(fontWeight: FontWeight.w600, fontSize: 16)),
             const SizedBox(height: 12),
             if (_activity.isEmpty)
@@ -266,8 +257,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-
-  // ── Helpers ────────────────────────────────────────────────────────────────
 
   Widget _statCard(String label, String value) {
     return Container(

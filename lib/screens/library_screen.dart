@@ -62,8 +62,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
     }
   }
 
-  // ── Add shelf sheet ────────────────────────────────────────────────────────
-
   void _showAddShelfSheet() {
     final ctrl = TextEditingController();
     showModalBottomSheet(
@@ -110,8 +108,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
     } catch (_) {}
   }
 
-  // ── Build ──────────────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final tabBar = TabBar(
@@ -133,7 +129,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // ── Header ───────────────────────────────────────────────────────
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
@@ -141,7 +136,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
               ),
             ),
 
-            // ── Sticky TabBar ─────────────────────────────────────────────
             SliverPersistentHeader(
               pinned: true,
               delegate: _StickyTabBarDelegate(
@@ -150,7 +144,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
               ),
             ),
 
-            // ── Tab content ───────────────────────────────────────────────
             SliverToBoxAdapter(
               child: _loading
                   ? const SizedBox(
@@ -160,7 +153,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
                   : _buildCurrentTabContent(),
             ),
 
-            // ── My Shelves ─────────────────────────────────────────────────
             SliverToBoxAdapter(child: _buildShelvesSection()),
             const SliverToBoxAdapter(child: SizedBox(height: 32)),
           ],
@@ -168,8 +160,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
       ),
     );
   }
-
-  // ── Tab content ────────────────────────────────────────────────────────────
 
   Widget _buildCurrentTabContent() {
     switch (_tabController.index) {
@@ -230,8 +220,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
     );
   }
 
-  // ── Shelves section ────────────────────────────────────────────────────────
-
   Widget _buildShelvesSection() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 28, 20, 0),
@@ -284,9 +272,6 @@ class LibraryScreenState extends State<LibraryScreen> with SingleTickerProviderS
     );
   }
 }
-
-// ── Sticky TabBar delegate ──────────────────────────────────────────────────
-
 class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
   final double height;
@@ -301,9 +286,6 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(_StickyTabBarDelegate old) => child != old.child;
 }
-
-// ── Book card (horizontal) ──────────────────────────────────────────────────
-
 class _BookCard extends StatelessWidget {
   final Map<String, dynamic> book;
   final String status;
@@ -405,8 +387,6 @@ class _BookCard extends StatelessWidget {
     } catch (_) { return ''; }
   }
 }
-
-// ── Shelf card ──────────────────────────────────────────────────────────────
 
 class _ShelfCard extends StatelessWidget {
   final Map<String, dynamic> shelf;

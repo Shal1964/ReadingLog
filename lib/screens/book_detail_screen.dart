@@ -63,8 +63,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     }
   }
 
-  // ── Library actions ────────────────────────────────────────────────────────
-
   Future<void> _addWithStatus(String status) async {
     final user = supabase.auth.currentUser!;
     try {
@@ -105,8 +103,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     );
   }
 
-  // ── Build ──────────────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final statusBarH = MediaQuery.of(context).padding.top;
@@ -141,7 +137,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // ── Background + cover ──────────────────────────────────────────
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -176,7 +171,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
               ],
             ),
 
-            // ── Content ─────────────────────────────────────────────────────
             Padding(
               padding: EdgeInsets.fromLTRB(20, overlapH + 16, 20, 32),
               child: Column(
@@ -187,7 +181,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                   Text('by : $author', style: AppTheme.caption),
                   const SizedBox(height: 12),
 
-                  // Rating
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -207,7 +200,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                   ),
                   const SizedBox(height: 18),
 
-                  // ── Three status buttons ────────────────────────────────
                   Row(
                     children: [
                       Expanded(child: _statusBtn('Currently Reading', () => _addWithStatus('reading'))),
@@ -218,7 +210,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                     ],
                   ),
 
-                  // Description
                   if (desc.isNotEmpty) ...[
                     const SizedBox(height: 22),
                     GestureDetector(
@@ -239,7 +230,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                     ),
                   ],
 
-                  // Tags
                   const SizedBox(height: 22),
                   Align(alignment: Alignment.centerLeft,
                     child: Text('Tags', style: AppTheme.body.copyWith(fontWeight: FontWeight.w600, fontSize: 16))),
@@ -252,7 +242,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                     ),
                   ),
 
-                  // Similar Books
                   if (_similar.isNotEmpty) ...[
                     const SizedBox(height: 28),
                     Align(alignment: Alignment.centerLeft,
@@ -318,9 +307,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
 
   String _fmtCount(int n) => n >= 1000 ? '${(n / 1000).toStringAsFixed(0)},000' : '$n';
 }
-
-// ── Add to Shelf bottom sheet ───────────────────────────────────────────────
-
 class _AddToShelfSheet extends StatefulWidget {
   final Map<String, dynamic> book;
   final String? supaBookId;

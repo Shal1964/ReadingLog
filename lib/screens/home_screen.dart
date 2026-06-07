@@ -447,8 +447,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// ── Genre Book List Screen ─────────────────────────────────────────────────────
-
 class _GenreBookListScreen extends StatefulWidget {
   final String genre;
   const _GenreBookListScreen({required this.genre});

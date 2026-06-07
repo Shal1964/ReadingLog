@@ -26,7 +26,6 @@ class BookService {
       return _parseDate((b['volumeInfo'] as Map?)?['publishedDate'] as String?)
           .compareTo(_parseDate((a['volumeInfo'] as Map?)?['publishedDate'] as String?));
     });
-    // deduplicate by id within the list
     final seen = <String>{};
     return all.where((item) => seen.add(item['id'] as String? ?? '')).take(10).toList();
   }

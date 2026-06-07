@@ -1,8 +1,6 @@
 import '../main.dart';
 
 class SupabaseService {
-  // ── Books ──────────────────────────────────────────────────────────────────
-
   Future<List<Map<String, dynamic>>> getBooks(String status) async {
     final data = await supabase.from('books').select().eq('status', status);
     return List<Map<String, dynamic>>.from(data);
@@ -54,7 +52,6 @@ class SupabaseService {
     }
   }
 
-  /// Insert-or-update a book. Checks by (user_id, api_id); updates status/updated_at if exists.
   Future<Map<String, dynamic>> upsertBook(Map<String, dynamic> fields) async {
     final existing = await getBookByApiId(fields['api_id'] as String);
     if (existing != null) {
@@ -113,8 +110,6 @@ class SupabaseService {
     return (data as List).length;
   }
 
-  // ── Quotes ─────────────────────────────────────────────────────────────────
-
   Future<List<Map<String, dynamic>>> getQuotes(String bookId) async {
     final data = await supabase.from('quotes').select().eq('book_id', bookId)
         .order('date_added', ascending: false);
@@ -129,8 +124,6 @@ class SupabaseService {
     await supabase.from('quotes').delete().eq('quote_id', quoteId);
   }
 
-  // ── Journals ───────────────────────────────────────────────────────────────
-
   Future<List<Map<String, dynamic>>> getJournals(String bookId) async {
     final data = await supabase.from('journals').select().eq('book_id', bookId)
         .order('date_added', ascending: false);
@@ -144,8 +137,6 @@ class SupabaseService {
   Future<void> deleteJournal(String journalId) async {
     await supabase.from('journals').delete().eq('journal_id', journalId);
   }
-
-  // ── Shelves ────────────────────────────────────────────────────────────────
 
   Future<List<Map<String, dynamic>>> getShelves() async {
     final user = supabase.auth.currentUser;
@@ -197,8 +188,6 @@ class SupabaseService {
         .eq('shelf_id', shelfId).eq('book_id', bookId);
   }
 
-  // ── Profile ────────────────────────────────────────────────────────────────
-
   Future<Map<String, dynamic>?> getProfile() async {
     final user = supabase.auth.currentUser;
     if (user == null) return null;
@@ -214,8 +203,6 @@ class SupabaseService {
     final user = supabase.auth.currentUser!;
     await supabase.from('profiles').upsert({...fields, 'user_id': user.id});
   }
-
-  // ── Recent Activity (merged) ───────────────────────────────────────────────
 
   Future<List<Map<String, dynamic>>> getRecentActivity() async {
     final userId = supabase.auth.currentUser!.id;

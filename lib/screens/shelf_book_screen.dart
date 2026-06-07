@@ -84,7 +84,6 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
     try {
       await _service.updateBookField(bookId, field, iso);
       setState(() => _book[field] = iso);
-      // start_date set without end_date → mark as reading
       if (field == 'start_date' && _book['end_date'] == null) {
         await _service.updateBookField(bookId, 'status', 'reading');
         await _service.updateBookField(bookId, 'updated_at', DateTime.now().toIso8601String());
@@ -95,7 +94,6 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
           );
         }
       }
-      // end_date set → mark as completed
       if (field == 'end_date') {
         await _service.updateBookField(bookId, 'status', 'completed');
         await _service.updateBookField(bookId, 'completed_at', iso);
@@ -181,13 +179,11 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
     setState(() => _book['current_page'] = result);
   }
 
-  /// Called from onChanged — debounces 800 ms then saves.
   void _saveReview() {
     _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 800), _saveReviewNow);
   }
 
-  /// Fire-and-forget save; safe to call from dispose (no setState).
   void _saveReviewNow() {
     final bookId = _book['book_id'] as String?;
     if (bookId == null) return;
@@ -317,7 +313,6 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
           )),
           const SizedBox(height: 12),
 
-          // Reading dates
           _card(Column(
             children: [
               _dateRow('Start Date', 'start_date'),
@@ -326,8 +321,6 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
             ],
           )),
           const SizedBox(height: 12),
-
-          // Progress
           _card(GestureDetector(
             onTap: _editProgress,
             child: Column(
@@ -354,7 +347,6 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
           )),
           const SizedBox(height: 12),
 
-          // Review
           _card(Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -380,7 +372,6 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
           )),
           const SizedBox(height: 12),
 
-          // After Thoughts & Review
           _card(Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -431,7 +422,6 @@ class _ShelfBookScreenState extends State<ShelfBookScreen> {
           )),
           const SizedBox(height: 12),
 
-          // Tags
           _card(Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

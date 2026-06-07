@@ -26,7 +26,6 @@ class BookCoverWidget extends StatelessWidget {
       height: height,
       child: Stack(
         children: [
-          // Cover image — offset right to sit inside the spine
           Positioned(
             left: spineW,
             top: 0,
@@ -45,7 +44,6 @@ class BookCoverWidget extends StatelessWidget {
                 : Container(color: AppTheme.progressTrack),
           ),
 
-          // Page edges strip (bottom right)
           Positioned(
             left: spineW,
             right: 0,
@@ -59,7 +57,6 @@ class BookCoverWidget extends StatelessWidget {
             ),
           ),
 
-          // Black spine (left)
           Positioned(
             left: 0,
             top: 0,
@@ -76,7 +73,6 @@ class BookCoverWidget extends StatelessWidget {
             ),
           ),
 
-          // Spine edge highlight — thin gradient for 3D depth
           Positioned(
             left: spineW,
             top: 0,
